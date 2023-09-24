@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>api data</title>
+
+    <style>
+        div div{
+            border: 1px solid;
+            flex-basis:15%;
+            padding: 9px;
+        }
+        .div{
+            margin-top: 30px;
+            margin-left: 50px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            height: 100px;
+        }
+        button{
+            margin-top: 200px;
+            margin-left: 40%;
+            padding: 20px;
+            font-size: 20px;
+            color: white;
+            border:1px solid rgb(127, 175, 72);
+            background-color: rgb(127, 175, 72);
+        }   
+    </style>
+</head>
+<body>
+    <div id="result" class="div"><button id="btn">click the button</button></div>
+    <script>
+        document.getElementById('btn').addEventListener('click', async ()=>{
+            let res = await fetch("https://datausa.io/api/data?drilldowns=Nation&measures=Population");
+            let data = await res.json();
+            console.log(data)
+            let result = document.getElementById('result');
+            let div = '<div>Id Nation</div><div>Nation</div><div>Id Year</div><div>Year</div><div>Population</div><div>Slug Nation</div>';
+            result.innerHTML = div;
+            for(let i=0;i<6;i++){
+                let box1 = document.createElement('div');
+                box1.innerHTML = data.data[i]["ID Nation"];
+                let box2 = document.createElement('div');
+                box2.innerHTML = data.data[i]["Nation"];
+                let box3 = document.createElement('div');
+                box3.innerHTML = data.data[i]["ID Year"];
+                let box4 = document.createElement('div');
+                box4.innerHTML = data.data[i]["Year"];
+                let box5 = document.createElement('div');
+                box5.innerHTML = data.data[i]["Population"];
+                let box6 = document.createElement('div');
+                box6.innerHTML = data.data[i]["Slug Nation"];
+                result.append(box1,box2,box3,box4,box5,box5,)
+
+            }
+        })
+    </script>
+
+</body>
+</html>
